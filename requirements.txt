@@ -1,0 +1,6 @@
+streamlit
+base64io
+yfinance
+numpy
+pandas
+tensorflow
