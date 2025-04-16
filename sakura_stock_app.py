@@ -124,6 +124,18 @@ def main():
     predicted_price = prediction[0][0] * (np.max(close_prices) - np.min(close_prices)) + np.min(close_prices)
     
     st.success(f"Predicted price in {days} days: ${predicted_price:.2f}")
+    # Add after creating X and y
+split = int(0.8 * len(X))
+X_train, X_test = X[:split], X[split:]
+y_train, y_test = y[:split], y[split:]
+
+# Train model
+model.fit(X_train, y_train, epochs=20, batch_size=32, verbose=0)
+
+# Evaluate
+test_predictions = model.predict(X_test)
+test_mae = np.mean(np.abs(test_predictions - y_test))
+print(f"Test MAE: {test_mae:.4f} (Lower = Better)")
 
 if __name__ == "__main__":
     main()
